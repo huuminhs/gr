@@ -1,6 +1,7 @@
 import { useState } from "react";
+import axios from "axios";
 
-function ComposePost(props) {
+function ComposePost() {
     const [input_val, updateVal] = useState({
         title: "",
         description: ""
@@ -8,8 +9,22 @@ function ComposePost(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.handleNewPost(input_val);
+        handleNewPost(input_val);
     };
+
+    const handleNewPost = (new_post) => {
+    
+        console.log(new_post);
+        axios.post('//localhost:3000/api', new_post)
+          .then((res) => {
+            console.log(res);
+            //fetchPostData();
+            // if (res.status >= 200 && res.status <= 299)
+            //   updatePostData([...post_data, new_post]);
+          });
+        //updatePostData([...post_data, {...new_post, created_at: (new Date()).toJSON()}]);
+        
+      }
 
     const handleChange = (e) => {
         updateVal({

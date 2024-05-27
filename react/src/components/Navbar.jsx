@@ -4,24 +4,25 @@ import { Link } from "react-router-dom";
 
 function Navbar () {
     return (
-        <div className='shadow md:flex'>
-            <nav className=" py-3 px-6 md:flex md:w-screen md:justify-between">
+            <nav className="py-3 px-6 shadow flex justify-between">
                 <div className='flex items-center'>
                     <div>
-                        <FaHouse className="fill-[#b21c0e]"/>
+                        <FaHouse className="fill-[#b21c0e] w-5 h-5"/>
                     </div>
                     <p className='ml-2 text-xl font-semibold text-[#b21c0e]'>Tìm nhà</p>
                 </div>
-                <ul className=' md:flex w-auto items-center'>
-                    <li className=''>
-                        <button className='block bg-transparent mr-4 group transition'>
-                            <p className="text-[#b21c0e]">Xem bài đăng</p>
-                            <hr className="border-[#b21c0e] w-0 group-hover:w-full duration-300"/>
-                        </button>
-                    </li>
+                <ul className='flex w-auto items-center'>
                     <li className=''>
                         <Link to='danh-sach-bai-dang'>
-                            <button className='flex items-center bg-[#b21c0e] hover:bg-[#a10c0d] duration-300 rounded px-2.5 py-1'>
+                            <button className='block bg-transparent mr-4 group transition'>
+                                <p className="text-[#b21c0e]">Xem bài đăng</p>
+                                <hr className="border-[#b21c0e] w-0 group-hover:w-full duration-200"/>
+                            </button>
+                        </Link>
+                    </li>
+                    <li className=''>
+                        <Link to='dang-bai'>
+                            <button className='flex items-center bg-[#b21c0e] hover:bg-[#a10c0d] duration-200 rounded px-2.5 py-1'>
                                 <MdOutlinePostAdd className="fill-white"/>
                                 <p className="text-white ml-1">Đăng bài</p>
                             </button>
@@ -30,7 +31,6 @@ function Navbar () {
                     
                 </ul>
             </nav>
-        </div>
     );
 }
 

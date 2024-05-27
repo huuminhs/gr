@@ -6,10 +6,10 @@ function Post(props) {
     const formatPrice = (price) => {
         if (price >= 1000000000)
             return (
-                <div>{price/1000000000} tỷ</div>
+                <div>{(price/1000000000).toFixed(2)} tỷ</div>
             );
         return (
-            <div>{price/1000000} triệu</div>
+            <div>{(price/1000000).toFixed(2)} triệu</div>
         );
     }
 

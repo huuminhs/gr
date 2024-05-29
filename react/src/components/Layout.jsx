@@ -4,10 +4,13 @@ import Navbar from "./Navbar";
 function Layout () {
     return (
         <div>
-            <div className="mb-2">
+            <div>
                 <Navbar/>
             </div>
-            <Outlet/>
+            <div className="pt-16">
+                <Outlet/>
+            </div>
+
         </div>
     );
 }

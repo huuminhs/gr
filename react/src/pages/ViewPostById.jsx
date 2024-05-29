@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FaBath, FaBed } from "react-icons/fa6";
+import ContactSellerCard from "../components/ContactSellerCard";
 
 export default function ViewPostById(props) {
     let { id } = useParams();
@@ -30,12 +31,12 @@ export default function ViewPostById(props) {
 
     return (
         <div>
-            <div className="flex justify-center">
-                <div className="shadow-md m-6 py-6 px-6 w-2/3 min-w-96 rounded-xl">
+            <div className="md:flex justify-center mb-6">
+                <div className="shadow-md sm:m-6 py-6 px-6 md:w-2/3 min-w-96 rounded-xl">
                     <div>
                         <img src={post.img_url} className="rounded-xl w-full h-72 object-cover object-center"/>
                     </div>
-                    <div className="mt-3">
+                    <div className="mt-4">
                         <Typography variant="h4" className="text-[#b21c0e]">{post.title}</Typography>
                         <Typography variant="paragraph" className="mt-1 text-gray-700">{`${post.address}, ${post.ward}, ${post.district}`}</Typography>
                     </div>
@@ -75,7 +76,11 @@ export default function ViewPostById(props) {
                         <p className="mt-5 text-gray-700">Đăng lúc {(new Date(post.created_at)).toLocaleString('en-GB', {hour12: false})}</p>
                     </div>
                 </div>
+                <div className="w-full flex md:block justify-center md:w-56 pt-6">
+                    <ContactSellerCard seller={post.seller} phone_number={post.phone_number}/>
+                </div>
             </div>
+            
         </div>
     );
 };

@@ -18,7 +18,9 @@ function Timeline() {
             <ul>
                 {post_data.map((post) => (
                     <li key={post.post_id}>
-                        <Post title={post.title}
+                        <Post
+                            post_id={post.post_id}
+                            title={post.title}
                             price={post.price}
                             size={post.size}
                             bedroom={post.bedroom}

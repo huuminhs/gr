@@ -14,19 +14,26 @@ app.all('/api/*', function(req, res, next) {
   next();
 });
 
-const insertQuery = `
-    INSERT INTO posts(title, description, price, seller, phone_number, size, address, bedroom, bathroom, type, img_url, province, district, ward)
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
-    RETURNING *;
-`;
-
 app.get('/api/get-post', (req, res) => {
   db.any('SELECT * FROM posts', [true])
     .then(data => res.json(data))
     .catch(err => console.log(err));
 });
 
+app.get('/api/get-post-by-id/:id', (req, res) => {
+  db.any(`SELECT * FROM posts WHERE post_id = ${req.params.id} `, [true])
+    .then(data => {
+      res.json(data);
+    })
+    .catch(error => console.log(error))
+});
+
 app.post('/api/new-post', (req, res) => {
+  const insertQuery = `
+    INSERT INTO posts(title, description, price, seller, phone_number, size, address, bedroom, bathroom, type, img_url, province, district, ward)
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+    RETURNING *;
+  `;
   db.one(insertQuery, [
     req.body.title,
     req.body.description,

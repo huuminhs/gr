@@ -57,12 +57,8 @@ export default function ComposePost() {
         axios.post('//localhost:3000/api/new-post', new_post)
           .then((res) => {
             console.log(res);
-            //fetchPostData();
-            // if (res.status >= 200 && res.status <= 299)
-            //   updatePostData([...post_data, new_post]);
-          });
-        //updatePostData([...post_data, {...new_post, created_at: (new Date()).toJSON()}]);
-        
+          })
+          .catch(error => console.log(error));
       }
 
     const handleChange = (e) => {

@@ -13,7 +13,7 @@ export default function ViewPostById(props) {
     useEffect(() => {
         axios.get(`//localhost:3000/api/get-post-by-id/${id}`)
             .then(res => {
-                console.log(res.data[0])
+                console.log(res.data[0]);
                 setPost(res.data[0]);
             })
             .catch(error => console.log(error));

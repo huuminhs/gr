@@ -79,7 +79,7 @@ export default function ComposePost() {
     }
 
     return (
-        <div className="w-full p-4 md:px-12 md:py-8">
+        <div className="w-full mx-4 md:mx-12">
             <form className="max-w-2xl" onSubmit={handleSubmit}>
                 <div className="mb-12">
                     <Typography variant="h4" className="mb-6 text-[#b21c0e] font-semibold">Thông tin bài đăng</Typography>

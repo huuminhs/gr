@@ -32,7 +32,7 @@ export default function ViewPostById(props) {
     return (
         <div>
             <div className="md:flex justify-center mb-6">
-                <div className="shadow-md sm:m-6 py-6 px-6 md:w-2/3 min-w-96 rounded-xl">
+                <div className="shadow-md sm:m-6 px-6 md:w-2/3 min-w-96 rounded-xl">
                     <div>
                         <img src={post.img_url} className="rounded-xl w-full h-72 object-cover object-center"/>
                     </div>

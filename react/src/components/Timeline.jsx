@@ -14,7 +14,7 @@ function Timeline() {
     }, []);
 
     return (
-        <div className='mx-5 my-6 max-w-3xl'>
+        <div className='mx-5 max-w-3xl'>
             <ul>
                 {post_data.sort((a, b) => (a.created_at > b.created_at? -1:1)).map((post) => (
                     <li key={post.post_id}>

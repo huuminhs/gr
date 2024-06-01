@@ -1,22 +1,15 @@
 const express = require('express');
 const pgp = require('pg-promise')(/* options */);
 const jwt = require('jsonwebtoken')
+const config = require('./utils/config')
+const cors = require('cors');
 const app = express();
-const port = 3000;
 
 app.use(express.json());
+app.use(cors());
 
-// Connect to Postgres DB
-const db = pgp('postgres://postgres:admin@localhost/gr1');
-// -------------------
-
-// --- Enable CORS ---
-app.all('/api/*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, X-Auth-Token, Origin, Authorization");
-  next();
-});
-// -------------------
+// Connect to Postgres DB 
+const db = pgp(config.POSTGRES_URL);
 
 // Login endpoint
 app.post('/login', (req, res) => {
@@ -81,6 +74,6 @@ app.post('/api/new-post', (req, res) => {
 });
 
 // ----------------------------------------
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
+app.listen(config.PORT, () => {
+  console.log(`Listening on port ${config.PORT}`);
 })

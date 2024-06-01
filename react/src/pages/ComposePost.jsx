@@ -1,7 +1,6 @@
 import { Textarea, Input, Typography, Select, Option, Button } from "@material-tailwind/react";
 import { useState } from "react";
-import axios from "axios";
-import { list } from "postcss";
+import uploadService from "../services/uploadService.js"
 
 export default function ComposePost() {
     const [new_post, setNewPost] = useState({
@@ -47,19 +46,15 @@ export default function ComposePost() {
         ]
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        handleNewPost(new_post);
+        try {
+            const response = await uploadService.createPost(new_post);
+            console.log(response);
+        } catch (e) {
+            console.log(e);
+        }
     };
-
-    const handleNewPost = (new_post) => {
-        console.log(new_post);
-        axios.post('//localhost:3000/api/new-post', new_post)
-          .then((res) => {
-            console.log(res);
-          })
-          .catch(error => console.log(error));
-      }
 
     const handleChange = (e) => {
         setNewPost({
@@ -168,9 +163,7 @@ export default function ComposePost() {
                     </div>
                 </div>
 
-                <Button onClick={() => {
-                    console.log(new_post);
-                }} type="submit" className="w-full bg-[#b21c0e] hover:bg-[#a10c0d]">Submit</Button>
+                <Button type="submit" className="w-full bg-[#b21c0e] hover:bg-[#a10c0d]">Submit</Button>
             </form>
         </div>
     );

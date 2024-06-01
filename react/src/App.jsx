@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Timeline from "./components/Timeline";
-import ComposePost from './components/ComposePost'
+import ComposePost from './pages/ComposePost'
 import Layout from "./components/Layout";
 import "./index.css"
 import ViewPostById from "./pages/ViewPostById";

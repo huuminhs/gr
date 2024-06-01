@@ -11,7 +11,7 @@ export default function ViewPostById(props) {
     const [post, setPost] = useState({});
 
     useEffect(() => {
-        axios.get(`//localhost:3000/api/get-post-by-id/${id}`)
+        axios.get(`//localhost:3000/api/post/${id}`)
             .then(res => {
                 console.log(res.data[0]);
                 setPost(res.data[0]);

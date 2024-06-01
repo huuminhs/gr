@@ -6,7 +6,7 @@ function Timeline() {
     const [post_data, updatePostData] = useState([]);
 
     useEffect(() => {
-        axios.get('//localhost:3000/api/get-post')
+        axios.get('//localhost:3000/api/post')
         .then((res) => res.data)
         .then((json) => updatePostData(json))
         .catch((err) => console.log(err));

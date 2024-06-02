@@ -1,4 +1,4 @@
-import Post from './Post.jsx'
+import Post from '../components/Post.jsx'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 

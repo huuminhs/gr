@@ -38,7 +38,6 @@ export function SignIn() {
             const response = await authService.signIn(credentials);
             console.log(response);
             if (response.status === 200) {
-                localStorage.setItem("token", response.data.token)
                 setToken(response.data.token)
             }
         }

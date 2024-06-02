@@ -7,10 +7,10 @@ const signIn = async credentials => {
     return response;
 }
 
-const validateToken = async token => {
+const isTokenExpired = async token => {
     // Note: this function return a http status
     try {
-        const response = await axios.post(`${base_url}/api/auth/validate-token`, {"token": token});
+        const response = await axios.post(`${base_url}/api/auth/is-token-expired`, {"token": token});
         return response.status
     }
     catch (e) {
@@ -18,4 +18,4 @@ const validateToken = async token => {
     }
 }
 
-export default { signIn, validateToken }
+export default { signIn, isTokenExpired }

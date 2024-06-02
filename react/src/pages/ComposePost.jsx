@@ -1,8 +1,11 @@
 import { Textarea, Input, Typography, Select, Option, Button } from "@material-tailwind/react";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { TokenContext } from "../App.jsx";
 import uploadService from "../services/uploadService.js"
 
 export default function ComposePost() {
+    const { token, setToken } = useContext(TokenContext)
+
     const [new_post, setNewPost] = useState({
         title: "",
         description: "",
@@ -49,7 +52,7 @@ export default function ComposePost() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await uploadService.createPost(new_post);
+            const response = await uploadService.createPost(token, new_post);
             console.log(response);
         } catch (e) {
             console.log(e);
@@ -79,7 +82,7 @@ export default function ComposePost() {
     }
 
     return (
-        <div className="w-full mx-4 md:mx-12">
+        <div className="w-full px-4 md:px-12">
             <form className="max-w-2xl" onSubmit={handleSubmit}>
                 <div className="mb-12">
                     <Typography variant="h4" className="mb-6 text-[#b21c0e] font-semibold">Thông tin bài đăng</Typography>

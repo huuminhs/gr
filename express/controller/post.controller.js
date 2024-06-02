@@ -22,8 +22,8 @@ async function getPost (req, res) {
 
 async function createPost (req, res) {
     const insertQuery = `
-    INSERT INTO posts(title, description, price, seller, phone_number, size, address, bedroom, bathroom, type, img_url, province, district, ward)
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
+    INSERT INTO posts(title, description, price, seller, phone_number, size, address, bedroom, bathroom, type, img_url, province, district, ward, username)
+    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
     RETURNING *;
     `;
     try {
@@ -41,7 +41,8 @@ async function createPost (req, res) {
             req.body.img_url,
             req.body.province,
             req.body.district,
-            req.body.ward
+            req.body.ward,
+            req.user.username
           ])
         console.log('Data inserted successfully:', data)
     }

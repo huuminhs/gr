@@ -14,7 +14,7 @@ async function signIn (req, res) {
             [data.username, data.password]
         )
         if (user) {
-            const token = jwt.sign(data, SECRET_KEY, {
+            const token = jwt.sign({"username": data.username}, SECRET_KEY, {
                 expiresIn: '1m',
             });
             res.status(200).json({ token });
@@ -28,19 +28,9 @@ async function signIn (req, res) {
     }
 }
 
-function tokenTest (req, res) {
+function isTokenExpired (req, res) {
     try {
-        var decoded = jwt.verify(req.body.token, SECRET_KEY);
-        res.json({decoded});
-    }
-    catch (e) {
-        res.json({e});
-    }   
-}
-
-function validateToken (req, res) {
-    try {
-        var decoded = jwt.verify(req.body.token, SECRET_KEY);
+        const decoded = jwt.verify(req.body.token, SECRET_KEY);
         res.status(200).json(decoded);
     }
     catch (e) {
@@ -49,7 +39,6 @@ function validateToken (req, res) {
 }
 
 authRouter.post('/sign-in', signIn)
-authRouter.post('/validate-token', validateToken)
-authRouter.post('/token-test', tokenTest)
+authRouter.post('/is-token-expired', isTokenExpired)
 
 module.exports = authRouter;

@@ -1,5 +1,4 @@
 import { FaHouse } from "react-icons/fa6";
-import { MdOutlinePostAdd } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { TokenContext } from "../App";
@@ -10,8 +9,7 @@ function Navbar () {
     const { token, setToken } = useContext(TokenContext)
 
     const handleSignOut = () => {
-        localStorage.removeItem("token");
-        setToken(null);
+        setToken(null)
     }
 
     return (
@@ -36,7 +34,7 @@ function Navbar () {
                     </li>
                     <li className=''>
                         {token?
-                            <Link to='dang-bai'>
+                            <Link to='protected/dang-bai'>
                                 <button className='bg-transparent mr-4 group transition pt-0.5'>
                                     <div className="flex items-center">
                                         <FaPen className="fill-[#b21c0e]"/>

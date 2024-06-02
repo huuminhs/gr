@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { useContext, useEffect } from "react";
 import { TokenContext } from "../App";
@@ -6,17 +6,16 @@ import authService from "../services/authService";
 
 function Layout () {
     const { token, setToken } = useContext(TokenContext)
+    const location = useLocation()
 
     async function checkTokenOnRender() {
-        const status = await authService.validateToken(token)
+        const status = await authService.isTokenExpired(token)
         console.log(status)
-        if (status === 401) {
-            localStorage.removeItem(token)
+        if (status === 401)
             setToken(null)
-        }
     }
 
-    useEffect(() => {checkTokenOnRender()}, []);
+    useEffect(() => {checkTokenOnRender()}, [location]);
 
     return (
         <div>

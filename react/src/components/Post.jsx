@@ -18,7 +18,7 @@ function Post(props) {
 
     return (
         <Link to={`/bai-dang/${props.post_id}`}>
-            <div className="h-36 min-w-96 sm:h-40 rounded-lg shadow-md mb-4 flex">
+            <div className="h-36 min-w-72 md:h-40 rounded-lg shadow-md mb-4 flex">
                 <div className="aspect-square">
                     <img className="h-full w-full object-cover rounded-l-lg" src={props.imgUrl} alt="House image"/>
                 </div>

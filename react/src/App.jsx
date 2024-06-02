@@ -7,6 +7,7 @@ import ViewPostById from "./pages/ViewPostById";
 import { SignIn } from "./pages/SignIn";
 import { createContext, useState } from "react";
 import Protected from "./pages/Protected";
+import Auth from "./pages/Auth";
 
 export const TokenContext = createContext();
 
@@ -26,7 +27,9 @@ export default function App() {
                         <Route path='/protected' element={<Protected/>}>
                             <Route path="dang-bai" element={<ComposePost/>}/>
                         </Route>
-                        <Route path="dang-nhap" element={<SignIn/>}/>
+                        <Route path='/auth' element={<Auth/>}>
+                            <Route path="dang-nhap" element={<SignIn/>}/>
+                        </Route>
                         <Route path="danh-sach-bai-dang" element={<Timeline/>}/>
                         <Route path="bai-dang/:id" element={<ViewPostById/>}/>
                     </Route>

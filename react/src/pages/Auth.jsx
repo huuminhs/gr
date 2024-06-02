@@ -3,10 +3,10 @@ import { TokenContext } from "../App";
 import { Navigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 
-export default function Protected() {
+export default function Auth() {
     const { token, setToken } = useContext(TokenContext)
 
     return (
-        token? <Outlet/> : <Navigate to='/auth/dang-nhap'/>
+        token? <Navigate to='/'/> : <Outlet/>
     );
 }

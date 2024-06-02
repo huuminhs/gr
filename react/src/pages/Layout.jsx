@@ -22,7 +22,7 @@ function Layout () {
             <div>
                 <Navbar/>
             </div>
-            <div className="pt-24">
+            <div className="pt-20 md:pt-24">
                 <Outlet/>
             </div>
         </div>

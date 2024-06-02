@@ -54,7 +54,7 @@ function Navbar () {
                                 <p className="text-white ml-1">Đăng xuất</p>
                             </button>
                         :
-                            <Link to='/dang-nhap'>
+                            <Link to='/auth/dang-nhap'>
                                 <button className='flex items-center bg-[#b21c0e] hover:bg-[#a10c0d] duration-200 rounded px-2.5 py-1'>
                                     <PiSignInBold className="fill-white"/>
                                     <p className="text-white ml-1">Đăng nhập</p>

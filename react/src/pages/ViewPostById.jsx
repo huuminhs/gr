@@ -1,4 +1,4 @@
-import { Breadcrumbs, Typography } from "@material-tailwind/react";
+import { Typography } from "@material-tailwind/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -22,17 +22,17 @@ export default function ViewPostById(props) {
     function formatPrice (price) {
         if (price >= 1000000000)
             return (
-                <>{Math.round(price/1000000000 * 100) / 100} tỷ</>
+                Math.round(price/1000000000 * 100) / 100 + " tỷ"
             );
         return (
-            <>{Math.round(price/1000000 * 100) / 100} triệu</>
+                Math.round(price/1000000 * 100) / 100 + " triệu"
         );
     }
 
     return (
         <div>
             <div className="md:flex justify-center mb-6">
-                <div className="shadow-md sm:m-6 px-6 md:w-2/3 min-w-96 rounded-xl">
+                <div className="shadow-md sm:m-6 px-6 pb-6 md:w-2/3 min-w-96 rounded-xl">
                     <div>
                         <img src={post.img_url} className="rounded-xl w-full h-72 object-cover object-center"/>
                     </div>

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FaBath, FaBed } from "react-icons/fa6";
 import ContactSellerCard from "../components/ContactSellerCard";
+import { formatPrice } from "../utils/formatPrice";
 
 export default function ViewPostById(props) {
     let { id } = useParams();
@@ -18,16 +19,6 @@ export default function ViewPostById(props) {
             })
             .catch(error => console.log(error));
     }, []);
-
-    function formatPrice (price) {
-        if (price >= 1000000000)
-            return (
-                Math.round(price/1000000000 * 100) / 100 + " tỷ"
-            );
-        return (
-                Math.round(price/1000000 * 100) / 100 + " triệu"
-        );
-    }
 
     return (
         <div>

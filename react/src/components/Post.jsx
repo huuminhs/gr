@@ -1,19 +1,9 @@
 import { FaBed } from "react-icons/fa";
 import { CiLocationOn } from "react-icons/ci";
 import { Link } from "react-router-dom";
-
+import { formatPrice } from "../utils/formatPrice";
 
 function Post(props) {
-    function formatPrice (price) {
-        if (price >= 1000000000)
-            return (
-                <>{Math.round(price/1000000000 * 100) / 100} tỷ</>
-            );
-        return (
-            <>{Math.round(price/1000000 * 100) / 100} triệu</>
-        );
-    }
-
     const icon_class = "sm:w-5 sm:h-5 mr-1"
 
     return (

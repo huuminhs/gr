@@ -4,4 +4,4 @@ const config = require('./config')
 
 const db = pgp(config.POSTGRES_URL);
 
-module.exports = { db }
+module.exports = db

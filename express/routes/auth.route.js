@@ -1,6 +1,6 @@
 const express = require('express')
 const authRouter = express.Router();
-const { signIn, signUp, isTokenExpired } = require('../controller/auth.controller')
+const { signIn, signUp, isTokenExpired } = require('../controllers/auth.controller')
 
 authRouter.post('/sign-in', signIn)
 authRouter.post('/sign-up', signUp)

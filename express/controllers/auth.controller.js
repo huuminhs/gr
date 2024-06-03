@@ -1,17 +1,18 @@
 const jwt = require('jsonwebtoken')
-const { db } = require('../utils/database')
+const db = require('../utils/database')
 const { SECRET_KEY } = require('../utils/config')
+const Auth = require('../models/auth.model')
+
+const auth = new Auth()
 
 async function signIn (req, res) {
     const data = req.body;
 
     try {
-        const user = await db.oneOrNone(
-            'SELECT * FROM users WHERE username = $1 AND hashed_password = $2',
-            [data.username, data.password]
-        )
+        const user = await auth.signIn(data.username, data.password)
+        
         if (user) {
-            const token = jwt.sign({"username": data.username}, SECRET_KEY, {
+            const token = jwt.sign({"username": user.username}, SECRET_KEY, {
                 expiresIn: '1m',
             });
             res.status(200).json({ token });
@@ -29,12 +30,8 @@ async function signUp (req, res) {
     const data = req.body;
 
     try {
-        const query = `
-            INSERT INTO users (username, hashed_password) 
-            VALUES ($1, $2)
-            RETURNING *;`;
-
-        const newUser = await db.one(query, [data.username, data.password]);
+        const newUser = await auth.signUp(data.username, data.password)
+        console.log(newUser)
         res.status(200).json({ success: true })
     }
     catch (error) {

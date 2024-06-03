@@ -15,7 +15,10 @@ export default function App() {
     const [token, _setToken] = useState(localStorage.getItem("token"))
 
     function setToken (tkn) {
-        localStorage.setItem("token", tkn)
+        if (tkn === null)
+            localStorage.removeItem("token")
+        else
+            localStorage.setItem("token", tkn)
         _setToken(tkn);
     }
 

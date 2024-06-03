@@ -8,7 +8,7 @@ import { useState, useContext } from "react";
 import { TokenContext } from "../App";
 import authService from "../services/authService";
    
-export function SignIn() {
+export function SignUp() {
     const [credentials, setCredentials] = useState({
         "username": "",
         "password": ""
@@ -27,11 +27,8 @@ export function SignIn() {
         e.preventDefault();
 
         try {
-            const response = await authService.signIn(credentials);
+            const response = await authService.signUp(credentials);
             console.log(response);
-            if (response.status === 200) {
-                setToken(response.data.token)
-            }
         }
         catch (e) {
             console.log('ERROR', e)
@@ -42,7 +39,7 @@ export function SignIn() {
         <div className="flex justify-center">
             <Card color="transparent" shadow={false}>
                 <Typography variant="h4" className="text-[#b21c0e] text-center">
-                    Đăng nhập
+                    Đăng ký
                 </Typography>
                 <form onSubmit={handleSubmit} className="mt-6 w-80 max-w-screen-lg sm:w-96">
                     <div className="mb-1 flex flex-col gap-6">
@@ -65,12 +62,12 @@ export function SignIn() {
                     />
                     </div>
                     <Button type="submit" className="mt-6 bg-[#b21c0e]" fullWidth>
-                    đăng nhập
+                    đăng ký
                     </Button>
                     <Typography color="gray" className="mt-4 text-center font-normal">
-                    Chưa có tài khoản?{" "}
-                    <a href="/auth/dang-ky" className="hover:underline font-medium text-[#b21c0e]">
-                        Đăng ký
+                    Đã có tài khoản?{" "}
+                    <a href="/auth/dang-nhap" className="hover:underline font-medium text-[#b21c0e]">
+                        Đăng nhập
                     </a>
                     </Typography>
                 </form>

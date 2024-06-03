@@ -8,6 +8,7 @@ import { SignIn } from "./pages/SignIn";
 import { createContext, useState } from "react";
 import Protected from "./pages/Protected";
 import Auth from "./pages/Auth";
+import { SignUp } from "./pages/SignUp";
 
 export const TokenContext = createContext();
 
@@ -32,10 +33,12 @@ export default function App() {
                         </Route>
                         <Route path='/auth' element={<Auth/>}>
                             <Route path="dang-nhap" element={<SignIn/>}/>
+                            <Route path="dang-ky" element={<SignUp/>}/>
                         </Route>
                         <Route path="danh-sach-bai-dang" element={<Timeline/>}/>
                         <Route path="bai-dang/:id" element={<ViewPostById/>}/>
                     </Route>
+                    <Route path='*' element={<>404 ERROR</>}/>
                 </Routes>
             </BrowserRouter>
         </TokenContext.Provider>

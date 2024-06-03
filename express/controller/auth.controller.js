@@ -25,6 +25,27 @@ async function signIn (req, res) {
     }
 }
 
+async function signUp (req, res) {
+    const data = req.body;
+
+    try {
+        const query = `
+            INSERT INTO users (username, hashed_password) 
+            VALUES ($1, $2)
+            RETURNING *;`;
+
+        const newUser = await db.one(query, [data.username, data.password]);
+        res.status(200).json({ success: true })
+    }
+    catch (error) {
+        if (error.code === '23505') {
+            res.status(409).json({ success: false, message: "Username is already taken" })
+        } else {
+            res.status(500).json(error)
+        }
+    }
+}
+
 
 
 function isTokenExpired (req, res) {
@@ -37,4 +58,4 @@ function isTokenExpired (req, res) {
     }   
 }
 
-module.exports = { signIn, isTokenExpired }
+module.exports = { signIn, signUp, isTokenExpired }

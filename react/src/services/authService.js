@@ -7,6 +7,10 @@ const signIn = async credentials => {
     return response;
 }
 
+const signUp = credentials => {
+    return axios.post(`${base_url}/api/auth/sign-up`, credentials);
+}
+
 const isTokenExpired = async token => {
     // Note: this function return a http status
     try {
@@ -18,4 +22,4 @@ const isTokenExpired = async token => {
     }
 }
 
-export default { signIn, isTokenExpired }
+export default { signIn, signUp, isTokenExpired }

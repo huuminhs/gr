@@ -35,4 +35,14 @@ async function createPost (req, res) {
     res.send("POST request called");
 }
 
-module.exports = { createPost, getPost, getAllPosts }
+async function searchPost (req, res) {
+    try {
+        const data = await post.searchPost(req.body.str)
+        res.json(data)
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+
+module.exports = { createPost, getPost, getAllPosts, searchPost }

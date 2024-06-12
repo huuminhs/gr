@@ -7,4 +7,12 @@ const createPost = (token, post_info) => {
     return axios.post(`${base_url}/api/post`, post_info);
 }
 
-export default { createPost }
+const getAllPost = () => {
+    return axios.get(`${base_url}/api/post`)
+}
+
+const searchPost = (str) => {
+    return axios.post(`${base_url}/api/post/search`, {"str": str})
+}
+
+export default { createPost, getAllPost, searchPost }

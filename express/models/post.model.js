@@ -9,6 +9,25 @@ class Post {
         return db.any(`SELECT * FROM posts WHERE post_id = ${id} `, [true])
     }
 
+    async searchPost (str) {
+        // Convert input string to lowercase
+        const lowerCaseInput = str.toLowerCase();
+        
+        // Construct the search pattern for SQL query
+        const searchPattern = `%${lowerCaseInput.split(' ').join('%')}%`;
+        
+        // SQL query to search for titles containing the words in the input string
+        const query = `
+            SELECT * FROM posts
+            WHERE LOWER(title) LIKE $1
+        `;
+        
+        // Execute the query
+        const results = await db.any(query, searchPattern);
+        
+        return results;
+    }
+
     createPost (data_obj, username) {
         const insertQuery = `
             INSERT INTO posts(title, description, price, seller, phone_number, size, address, bedroom, bathroom, type, img_url, province, district, ward, username)

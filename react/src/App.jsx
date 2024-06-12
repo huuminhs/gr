@@ -28,13 +28,16 @@ export default function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Layout/>}>
+                        {/* Private route (require signing in) */}
                         <Route path='/protected' element={<Protected/>}>
                             <Route path="dang-bai" element={<ComposePost/>}/>
                         </Route>
+                        {/* Auth routes */}
                         <Route path='/auth' element={<Auth/>}>
                             <Route path="dang-nhap" element={<SignIn/>}/>
                             <Route path="dang-ky" element={<SignUp/>}/>
                         </Route>
+                        {/* Public routes */}
                         <Route path="danh-sach-bai-dang" element={<Timeline/>}/>
                         <Route path="bai-dang/:id" element={<ViewPostById/>}/>
                     </Route>

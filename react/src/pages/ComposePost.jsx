@@ -1,7 +1,7 @@
 import { Textarea, Input, Typography, Select, Option, Button } from "@material-tailwind/react";
 import { useContext, useState } from "react";
 import { TokenContext } from "../App.jsx";
-import uploadService from "../services/uploadService.js"
+import postService from "../services/postService.js";
 
 export default function ComposePost() {
     const { token, setToken } = useContext(TokenContext)
@@ -52,7 +52,7 @@ export default function ComposePost() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await uploadService.createPost(token, new_post);
+            const response = await postService.createPost(token, new_post);
             console.log(response);
         } catch (e) {
             console.log(e);

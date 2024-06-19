@@ -13,15 +13,15 @@ function Navbar () {
     }
 
     return (
-            <nav className="py-2 px-6 shadow-md bg-white z-50 fixed top-0 w-full flex justify-between">
+            <nav className="py-1.5 px-6 shadow-md bg-white z-50 fixed top-0 w-full flex justify-between">
                 <Link to='/'>
-                    <div className='flex items-center mt-1'>
+                    <div className='flex items-center mt-1.5'>
                             <FaHouse className="fill-[#b21c0e] w-5 h-5 -mt-0.5"/>
                             <p className='ml-2 text-xl font-semibold text-[#b21c0e]'>Tìm nhà</p>
                     </div>
                 </Link>
                 <ul className='flex w-auto items-center'>
-                    <li className='mt-1.5'>
+                    <li className='mt-2'>
                         <Link to='danh-sach-bai-dang'>
                             <button className='bg-transparent mr-4 group transition'>
                                 <div className="flex items-center">
@@ -32,7 +32,7 @@ function Navbar () {
                             </button>
                         </Link>
                     </li>
-                    <li className='mt-1.5'>
+                    <li className='mt-2'>
                         {token?
                             <Link to='protected/dang-bai'>
                                 <button className='bg-transparent mr-4 group transition'>

@@ -13,31 +13,31 @@ function Navbar () {
     }
 
     return (
-            <nav className="py-3 px-6 shadow-md bg-white z-50 fixed top-0 w-full flex justify-between">
+            <nav className="py-2 px-6 shadow-md bg-white z-50 fixed top-0 w-full flex justify-between">
                 <Link to='/'>
-                    <div className='flex items-center'>
-                            <FaHouse className="fill-[#b21c0e] w-5 h-5"/>
+                    <div className='flex items-center mt-1'>
+                            <FaHouse className="fill-[#b21c0e] w-5 h-5 -mt-0.5"/>
                             <p className='ml-2 text-xl font-semibold text-[#b21c0e]'>Tìm nhà</p>
                     </div>
                 </Link>
                 <ul className='flex w-auto items-center'>
-                    <li className=''>
+                    <li className='mt-1.5'>
                         <Link to='danh-sach-bai-dang'>
-                            <button className='block bg-transparent mr-4 group transition'>
+                            <button className='bg-transparent mr-4 group transition'>
                                 <div className="flex items-center">
-                                    <FaRegNewspaper className="fill-[#b21c0e]"/>
+                                    <FaRegNewspaper className="fill-[#b21c0e] w-4 h-4"/>
                                     <p className="text-[#b21c0e] ml-1">Xem tin</p>
                                 </div>
                                 <hr className="border-[#b21c0e] w-0 group-hover:w-full duration-200"/>
                             </button>
                         </Link>
                     </li>
-                    <li className=''>
+                    <li className='mt-1.5'>
                         {token?
                             <Link to='protected/dang-bai'>
-                                <button className='bg-transparent mr-4 group transition pt-0.5'>
+                                <button className='bg-transparent mr-4 group transition'>
                                     <div className="flex items-center">
-                                        <FaPen className="fill-[#b21c0e]"/>
+                                        <FaPen className="fill-[#b21c0e] w-3 h-3"/>
                                         <p className="text-[#b21c0e] ml-1">Đăng bài</p>
                                     </div>
                                     <hr className="border-[#b21c0e] w-0 group-hover:w-full duration-200"/>

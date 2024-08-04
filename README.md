@@ -1,5 +1,4 @@
-# gr1
-Graduation research 1
+# Graduation research
 
 # Run the app
 ### React

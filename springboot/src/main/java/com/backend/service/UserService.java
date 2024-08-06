@@ -21,4 +21,11 @@ public class UserService implements UserDetailsService {
         }
         return new CustomUserDetails(user);
     }
+    public UserDetails loadUserById(long uid) throws Exception {
+        User user = userRepository.findByUid(uid);
+        if (user == null) {
+            throw new Exception(uid + " not found");
+        }
+        return new CustomUserDetails(user);
+    }
 }

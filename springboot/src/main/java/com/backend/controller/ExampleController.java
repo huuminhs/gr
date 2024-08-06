@@ -1,8 +1,18 @@
 package com.backend.controller;
 
 import com.backend.model.User;
+import com.backend.payload.LoginRequest;
+import com.backend.payload.LoginResponse;
 import com.backend.repository.UserRepository;
+import com.backend.security.JwtTokenProvider;
+import com.backend.service.CustomUserDetails;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +22,10 @@ import java.util.*;
 public class ExampleController {
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
     @GetMapping("/")
     public Map<String, String> home() {
@@ -50,5 +64,22 @@ public class ExampleController {
         if (user.getPassword() != null && user.getEmail() != null)
             userRepository.save(user);
         System.out.println(user.toString());
+    }
+
+    @PostMapping("/api/login")
+    public LoginResponse authenticateUser (@Valid @RequestBody LoginRequest loginRequest) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginRequest.getEmail(),
+                        loginRequest.getPassword()
+                )
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String jwt = jwtTokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
+
+        return new LoginResponse(jwt);
+
     }
 }

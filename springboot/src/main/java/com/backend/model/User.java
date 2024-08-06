@@ -1,5 +1,6 @@
 package com.backend.model;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.io.Serializable;
@@ -11,7 +12,8 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long uid;
-    private String password;
+    @Column(nullable = false, unique = true)
     private String email;
+    private String password;
 }
 

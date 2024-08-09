@@ -1,46 +1,40 @@
 package com.backend.config;
 
 import com.backend.security.JwtAuthFilter;
-import com.backend.service.UserService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@EnableWebSecurity
-@RequiredArgsConstructor
-@EnableMethodSecurity
+@AllArgsConstructor // create constructor so that @Autowired is not required anymore
+@EnableMethodSecurity // not sure what this does yet
 public class SecurityConfiguration {
-    @Autowired
-    UserService userService;
-    @Autowired
     private final AuthenticationProvider authenticationProvider;
-    @Bean
-    public JwtAuthFilter jwtAuthFilter() {
-        return new JwtAuthFilter();
-    }
+    private final JwtAuthFilter jwtAuthFilter;
+
+    public final String[] PUBLIC_ROUTES = {
+            "/api/login",
+            "/user/**",
+            "/error/**"
+    };
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
-                        .anyRequest().permitAll()
+                        .requestMatchers(PUBLIC_ROUTES).permitAll()
+                        .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider)
-                .userDetailsService(userService)
-                .addFilterBefore(jwtAuthFilter(), UsernamePasswordAuthenticationFilter.class)
-                .formLogin((form) -> form
-                        .permitAll()
-                )
-                .logout((logout) -> logout.permitAll());
+                .addFilterBefore(jwtAuthFilter,
+                        UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

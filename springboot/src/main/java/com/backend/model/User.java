@@ -1,6 +1,5 @@
 package com.backend.model;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.io.Serializable;

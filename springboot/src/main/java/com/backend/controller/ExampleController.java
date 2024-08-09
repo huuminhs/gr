@@ -1,14 +1,15 @@
 package com.backend.controller;
 
 import com.backend.model.User;
-import com.backend.payload.LoginRequest;
-import com.backend.payload.LoginResponse;
+import com.backend.dto.LoginRequest;
+import com.backend.dto.LoginResponse;
 import com.backend.repository.UserRepository;
-import com.backend.security.JwtTokenProvider;
+import com.backend.security.JwtService;
+import com.backend.service.AuthService;
 import com.backend.service.CustomUserDetails;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,13 +20,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
+@AllArgsConstructor
 public class ExampleController {
-    @Autowired
     UserRepository userRepository;
-    @Autowired
+    private AuthService authService;
+    private JwtService jwtService;
     private AuthenticationManager authenticationManager;
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
 
     @GetMapping("/")
     public Map<String, String> home() {
@@ -63,23 +63,21 @@ public class ExampleController {
     public void addUser(@RequestBody User user){
         if (user.getPassword() != null && user.getEmail() != null)
             userRepository.save(user);
-        System.out.println(user.toString());
     }
 
     @PostMapping("/api/login")
     public LoginResponse authenticateUser (@Valid @RequestBody LoginRequest loginRequest) {
-        Authentication authentication = authenticationManager.authenticate(
+        Authentication auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getEmail(),
                         loginRequest.getPassword()
                 )
         );
+        SecurityContextHolder.getContext().setAuthentication(auth);
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        String jwt = jwtTokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
-
-        return new LoginResponse(jwt);
-
+        String jwt = jwtService.generateToken((CustomUserDetails) auth.getPrincipal());
+        return LoginResponse.builder().
+                accessToken(jwt).
+                build();
     }
 }

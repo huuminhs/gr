@@ -2,18 +2,17 @@ package com.backend.security;
 
 import com.backend.service.CustomUserDetails;
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import javax.crypto.SecretKey;
+import java.security.KeyPair;
 import java.util.Date;
 
 @Slf4j
 @Component
-public class JwtTokenProvider {
-    private final SecretKey JWT_SECRET = Keys.secretKeyFor(SignatureAlgorithm.HS512);
-    private final long JWT_EXPIRATION = 3600;
+public class JwtService {
+    private final KeyPair JWT_SECRET = Jwts.SIG.ES256.keyPair().build();
+    private final long JWT_EXPIRATION = 60 * 1000; // seconds * 1000
 
     public String generateToken(CustomUserDetails userDetails) {
         Date now = new Date();
@@ -23,25 +22,23 @@ public class JwtTokenProvider {
                 .subject(userDetails.getUser().getUid().toString())
                 .issuedAt(now)
                 .expiration(expiryDate)
-                .signWith(JWT_SECRET)
+                .signWith(JWT_SECRET.getPrivate())
                 .compact();
     }
 
     public Long getUserIdFromJWT(String token) {
         Claims claims = Jwts.parser()
-                .setSigningKey(JWT_SECRET)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+                .verifyWith(JWT_SECRET.getPublic())
+                .build().parseSignedClaims(token)
+                .getPayload();
         return Long.parseLong(claims.getSubject());
     }
 
     public boolean validateToken(String token) {
         try {
             Jwts.parser()
-                    .setSigningKey(JWT_SECRET)
-                    .build()
-                    .parseClaimsJws(token)
+                    .verifyWith(JWT_SECRET.getPublic())
+                    .build().parseSignedClaims(token)
                     .getPayload();
             return true;
         }

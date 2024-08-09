@@ -1,4 +1,4 @@
-package com.backend.payload;
+package com.backend.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

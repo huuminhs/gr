@@ -13,6 +13,10 @@ public class User implements Serializable {
     private Long uid;
     @Column(nullable = false, unique = true)
     private String email;
+    @Column(nullable = false)
     private String password;
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }
 

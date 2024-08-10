@@ -1,5 +1,6 @@
 package com.backend.controller;
 
+import com.backend.model.Role;
 import com.backend.model.User;
 import com.backend.dto.LoginRequest;
 import com.backend.dto.LoginResponse;
@@ -10,13 +11,16 @@ import com.backend.service.CustomUserDetails;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.*;
 
 @RestController
@@ -45,6 +49,34 @@ public class ExampleController {
         user.setPassword((new BCryptPasswordEncoder()).encode(password));
         userRepository.save(user);
         return Collections.singletonMap("success", "true");
+    }
+
+    @GetMapping("/user/admin")
+    public void userAdmin () {
+        User user = userRepository.findByUid(26L);
+        user.setRole(Role.ADMIN);
+        userRepository.save(user);
+    }
+
+    @GetMapping("/user/user")
+    public void userUser () {
+        User user = userRepository.findByUid(26L);
+        user.setRole(Role.USER);
+        userRepository.save(user);
+    }
+
+    @GetMapping("/user/whoami")
+    public Object whoAmI(Principal principal) {
+        String email = principal.getName();
+        User user = userRepository.findByEmail(email);
+        return user;
+    }
+
+    @GetMapping("/user/whoami2")
+    public Map<String, String> whoAmI(Authentication authentication) {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        Long uid = userDetails.getUid();
+        return Collections.singletonMap("uid", uid.toString());
     }
 
     @GetMapping("/user")
@@ -79,5 +111,11 @@ public class ExampleController {
         return LoginResponse.builder().
                 accessToken(jwt).
                 build();
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/test")
+    public Map<String, String> authorityTest() {
+        return Collections.singletonMap("success", "true");
     }
 }

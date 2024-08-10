@@ -20,8 +20,8 @@ public class SecurityConfiguration {
 
     public final String[] PUBLIC_ROUTES = {
             "/api/login",
-            "/user/**",
-            "/error/**"
+            "/user",
+            "/user/**"
     };
 
     @Bean
